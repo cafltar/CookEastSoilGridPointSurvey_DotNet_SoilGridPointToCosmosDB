@@ -1,0 +1,21 @@
+FieldName,Units,Description,DataType
+Year,unitless,Year sample was collected,Int
+ID2,unitless,Number ID of georeference point near sample collection,Int
+Latitude,dd,Latitude of georeference point near where sample was collected,Double
+Longitude,dd,Longitude of georeference point near where sample was colelcted,Double
+TopDepth,cm,Top depth of subsample taken from soil core,Int
+BottomDepth,cm,Bottom depth of subsample taken from soil core,Int
+Horizon,unitless,Horizon designation of the subsample,String
+BulkDensity,g/cm^3,Bulk density of the subsample,Double
+dC13,permille,Carbon isotopic composition of the subsample,Double
+dC13AcidWashed,permille,Carbon isotopic composition of the subsample after acid washed,Double
+TNConc,%,Total nitrogen concentraion,Double
+TNConcAcidWashed,%,Total nitrogen concentration after acid washed,Double
+TCConc,%,Total carbon concentration,Double
+TCConcAcidWashed,%,Total carbon concentration after acid washed,Double
+TocConc,%,Total organic carbon concentration,Double
+TocStock,Mg/ha,Total organic carbon stock,Double
+TicConc,%,Total inorganic carbon concentration,Double
+TicStock,Mg/ha,Total inorganic carbon stock,Double
+TNStock,Mg/ha,Total nitrogen stock,Double
+pH,unitless,pH of the subsample,Double

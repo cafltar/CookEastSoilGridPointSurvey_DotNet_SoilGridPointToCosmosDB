@@ -13,6 +13,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SoilGridPointToCosmosDB
@@ -102,25 +104,28 @@ namespace SoilGridPointToCosmosDB
                 etlEvent.Logs.Add(
                     $"Transformed TidyData to {transformed.Count} SoilSamples");
 
-                //StoredProcedureResponse<bool>[] results = await loader.LoadBulk(transformed);
-
                 int docsLoaded = 0;
-
+                int docsError = 0;
                 foreach(SoilSample sample in transformed)
                 {
                     ResourceResponse<Document> result = 
                         await loader.LoadNoReplace(sample);
-                    if(result.StatusCode == System.Net.HttpStatusCode.Created)
+                    if(result.StatusCode == HttpStatusCode.Created)
                     {
                         etlEvent.Outputs.Add(result.Resource.Id);
                         docsLoaded++;
                     }
+                    else { docsError++; }
 
+                    // Notify data written then sleep to conserve Cosmos RU
                     Console.Write(".");
+                    Thread.Sleep(40);
                 }
 
                 etlEvent.Logs.Add(
                     $"Loaded {docsLoaded.ToString()} SoilSamples");
+                etlEvent.Logs.Add(
+                    $"Error loading {docsError.ToString()} SoilSamples");
             }
             catch(Exception e)
             {
